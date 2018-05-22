@@ -2579,7 +2579,7 @@ public class FlowController implements EventAccess, ControllerServiceProvider, R
     }
 
     public void onProcessGroupRemoved(final ProcessGroup group) {
-        allProcessGroups.remove(group.getIdentifier());
+		allProcessGroups.remove(group.getIdentifier());
     }
 
     public void onProcessorAdded(final ProcessorNode procNode) {
@@ -2587,7 +2587,9 @@ public class FlowController implements EventAccess, ControllerServiceProvider, R
     }
 
     public void onProcessorRemoved(final ProcessorNode procNode) {
-        allProcessors.remove(procNode.getIdentifier());
+    	String identifier = procNode.getIdentifier();
+		flowFileEventRepository.purgeTransferEvents(identifier);
+        allProcessors.remove(identifier);
     }
 
     public ProcessorNode getProcessorNode(final String id) {
@@ -2599,7 +2601,9 @@ public class FlowController implements EventAccess, ControllerServiceProvider, R
     }
 
     public void onConnectionRemoved(final Connection connection) {
-        allConnections.remove(connection.getIdentifier());
+        String identifier = connection.getIdentifier();
+        flowFileEventRepository.purgeTransferEvents(identifier);
+		allConnections.remove(identifier);
     }
 
     public Connection getConnection(final String id) {
@@ -2611,7 +2615,9 @@ public class FlowController implements EventAccess, ControllerServiceProvider, R
     }
 
     public void onInputPortRemoved(final Port inputPort) {
-        allInputPorts.remove(inputPort.getIdentifier());
+        String identifier = inputPort.getIdentifier();
+        flowFileEventRepository.purgeTransferEvents(identifier);
+		allInputPorts.remove(identifier);
     }
 
     public Port getInputPort(final String id) {
@@ -2623,7 +2629,9 @@ public class FlowController implements EventAccess, ControllerServiceProvider, R
     }
 
     public void onOutputPortRemoved(final Port outputPort) {
-        allOutputPorts.remove(outputPort.getIdentifier());
+        String identifier = outputPort.getIdentifier();
+        flowFileEventRepository.purgeTransferEvents(identifier);
+		allOutputPorts.remove(identifier);
     }
 
     public Port getOutputPort(final String id) {
@@ -2635,7 +2643,9 @@ public class FlowController implements EventAccess, ControllerServiceProvider, R
     }
 
     public void onFunnelRemoved(final Funnel funnel) {
-        allFunnels.remove(funnel.getIdentifier());
+        String identifier = funnel.getIdentifier();
+        flowFileEventRepository.purgeTransferEvents(identifier);
+		allFunnels.remove(identifier);
     }
 
     public Funnel getFunnel(final String id) {
